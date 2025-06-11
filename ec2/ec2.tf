@@ -1,10 +1,12 @@
 resource "aws_instance" "demo-terraform" {
-  ami           = "ami-09c813fb71547fc4f"
-  instance_type = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.allow_all.id]
+  ami                         = "ami-09c813fb71547fc4f"
+  instance_type               = "t2.micro"
+  security_groups             = [aws_security_group.allow_all.id]
+  subnet_id                   = "subnet-07d9ef0ea659b9697"
+  associate_public_ip_address = "true"
 
   tags = {
-    Name = "Demo-tf"
+    Name = "Demo-terrafrom"
   }
 }
 
@@ -16,7 +18,7 @@ resource "aws_security_group" "allow_all" {
     Name = "allow_all"
   }
 
-   ingress {
+  ingress {
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
@@ -24,7 +26,7 @@ resource "aws_security_group" "allow_all" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
-   egress {
+  egress {
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
